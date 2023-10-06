@@ -4,21 +4,31 @@ package ru.stqa.pft.addressbook.appmanager;
 import org.openqa.selenium.By;
 import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.Browser;
 
 import java.util.concurrent.TimeUnit;
 
 public class ApplicationManager {
+    private final String  browser;
     WebDriver wd;
-    //protected ApplicationManager app = new ApplicationManager();
     private  NavigationHelper navigationHelper;
     private ContactHelper contactHelper;
 
     private SessionHelper sessionHelper;
     private GroupsHelper groupsHelper;
 
+    public ApplicationManager(Browser browser) {
+        this.browser = String.valueOf(browser);
+    }
+
     public void init() {
-       wd = new FirefoxDriver();
+        if (browser.equals(String.valueOf(Browser.FIREFOX)) ) {
+            wd = new FirefoxDriver();
+        } else  if ( browser.equals(String.valueOf(Browser.CHROME))) {
+            wd = new ChromeDriver();
+        }
         wd.manage().timeouts().implicitlyWait(30, TimeUnit.SECONDS);
         wd.get("http://localhost/addressbook/");
 
