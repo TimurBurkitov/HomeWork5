@@ -6,14 +6,15 @@ import ru.stqa.pft.addressbook.model.GroupData;
 
 import java.util.HashSet;
 import java.util.List;
-import java.util.Objects;
 
 public class GroupModificationTests extends TestBase{
+    public int id;
+
     @Test
     public void testGroupModification() {
         app.getNavigationHelper().gotoGroupPage();
         if ( ! app.getGroupsHelper().isThereAGroup()) {
-            app.getGroupsHelper().createGroup(new GroupData("test1", null, null));
+            app.getGroupsHelper().createGroup(new GroupData(id, "test1", null, null));
         }
         List<GroupData> before = app.getGroupsHelper().getGroupList();
         app.getGroupsHelper().selectGroup(before.size() - 1);
